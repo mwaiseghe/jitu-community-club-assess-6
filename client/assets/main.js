@@ -1,7 +1,6 @@
 const form = document.getElementById("member_form");
-const endpoint = "http://127.0.0.1:8080/api/v1/register/";
+const endpoint = "http://127.0.0.1:8080/api/v1/register";
 const messages_div = document.getElementById("message");
-console.log(messages_div);
 
 
 form.addEventListener("submit", async (e) => {
@@ -14,7 +13,7 @@ form.addEventListener("submit", async (e) => {
         email: form.email.value,
         phone_number: form.phone_number.value,
         gender: form.gender.value,
-        cohort_number: form.cohort_number.value,
+        cohort_number: parseInt(form.cohort_number.value, 10) || 0,
         description: form.description.value,
     };
   
@@ -24,22 +23,33 @@ form.addEventListener("submit", async (e) => {
         return;
         }
 
+    console.log(JSON.stringify(formData));
+
     // send form data to server
     const response = await fetch(endpoint, {
         method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+        },
         body: JSON.stringify(formData)
     });
-    const data = await response.json();
+
+    console.log(response);
+
+    if (response.status !== 200) {
+        const data = await response.json();
+        messages_div.innerHTML = `<p style="color: red;">${data.message}</p>`;
+        return;
+    }
+
+    const data = await response.json(); 
+    messages_div.innerHTML = `<p style="color: green;">${data.message}</p>`;
+    form.reset();
     console.log(data);
-    if (data.status === "success") {
-        messages_div.innerHTML = `<p style="color: green;">${data.message}</p>`;
-        window.location.href = "/index.html";
-        }
 });
     
 function validateForm(formData) {
     const {first_name, last_name, email, phone_number, gender, cohort_number, description} = formData;
-    console.log(formData);
     if(!first_name || !last_name || !email || !phone_number || !gender || !cohort_number || !description){
         messages_div.innerHTML = `<p style="color: red;">Please fill in all fields</p>`;
         return false;

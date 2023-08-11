@@ -9,7 +9,7 @@ CREATE TABLE registerMemberTable (
     email VARCHAR(255) NOT NULL,
     phone_number VARCHAR(255) NOT NULL,
     gender VARCHAR(255) NOT NULL,
-    cohort_number VARCHAR(30) NOT NULL,
+    cohort_number INT,
     description VARCHAR(500) NOT NULL,
     date_registered DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)

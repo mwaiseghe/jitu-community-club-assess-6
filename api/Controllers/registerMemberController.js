@@ -11,6 +11,7 @@ const registerMember = async (req, res) => {
             } = req.body;
 
         const id = v4();
+        console.log(req.body);
 
         // validate the data
         if(!first_name || !last_name || !email || !phone_number || !gender || !cohort_number || !description){
@@ -48,7 +49,7 @@ const registerMember = async (req, res) => {
             .input('email', mssql.VarChar(255), email)
             .input('phone_number', mssql.VarChar(255), phone_number)
             .input('gender', mssql.VarChar(255), gender)
-            .input('cohort_number', mssql.VarChar(255), cohort_number)
+            .input('cohort_number', mssql.Int(255), cohort_number)
             .input('description', mssql.VarChar(255), description)
             .execute('registerMemberProc');
 
@@ -63,7 +64,7 @@ const registerMember = async (req, res) => {
         })
     }catch(error){
         return res.status(500).json({
-            message: "Oops! Something went wrong"
+            message: error.message
         })
     }
 }

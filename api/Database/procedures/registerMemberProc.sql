@@ -8,7 +8,7 @@ CREATE OR ALTER PROCEDURE registerMemberProc
     @email VARCHAR(255),
     @phone_number VARCHAR(255),
     @gender VARCHAR(255),
-    @cohort_number VARCHAR(30),
+    @cohort_number INT,
     @description VARCHAR(500)
 AS
 BEGIN
