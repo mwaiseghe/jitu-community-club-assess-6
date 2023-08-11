@@ -14,7 +14,6 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 app.use('/api/v1/', router)
 
-
 const server = app.listen(port, ()=>{
     console.log(`The Jitu Community Club API is running on port: ${port}`);
 })

@@ -1,4 +1,4 @@
-const Router = require('express')
+const { Router } = require('express')
 const { registerMember } = require('../Controllers/registerMemberController')
 const router = Router()
 

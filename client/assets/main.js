@@ -27,8 +27,8 @@ form.addEventListener("submit", async (e) => {
     // send form data to server
     const response = await fetch(endpoint, {
         method: "POST",
-        body: JSON.stringify(formData),
-        });
+        body: JSON.stringify(formData)
+    });
     const data = await response.json();
     console.log(data);
     if (data.status === "success") {
