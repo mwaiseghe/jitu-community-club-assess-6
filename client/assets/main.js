@@ -1,21 +1,22 @@
 const form = document.getElementById("member_form");
-const endpoint = "http://127.0.0.1:8080/api/v1/register";
+const endpoint = "http://127.0.0.1:8080/api/v1/register/";
 const messages_div = document.getElementById("message");
 console.log(messages_div);
 
-const formData = {
-    first_name: document.getElementById("first_name").value,
-    last_name: document.getElementById("last_name").value,
-    email: document.getElementById("email").value,
-    phone_number: document.getElementById("phone_number").value,
-    gender: document.getElementById("gender").value,
-    cohort_number: document.getElementById("cohort_number").value,
-    description: document.getElementById("description").value,
-
-}
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
+
+    // get form data
+    const formData = {
+        first_name: form.first_name.value,
+        last_name: form.last_name.value,
+        email: form.email.value,
+        phone_number: form.phone_number.value,
+        gender: form.gender.value,
+        cohort_number: form.cohort_number.value,
+        description: form.description.value,
+    };
   
   // validate form data
     const formValid = validateForm(formData);
@@ -26,7 +27,7 @@ form.addEventListener("submit", async (e) => {
     // send form data to server
     const response = await fetch(endpoint, {
         method: "POST",
-        body: formData,
+        body: JSON.stringify(formData),
         });
     const data = await response.json();
     console.log(data);

@@ -3,6 +3,6 @@ const { registerMember } = require('../Controllers/registerMemberController')
 const router = Router()
 
 
-router.post('/register', registerMember)
+router.post('register/', registerMember)
 
 module.exports = router
