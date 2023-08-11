@@ -1,0 +1,24 @@
+{
+  "name": "jitu-community-club",
+  "version": "1.0.0",
+  "description": "This is a club that brings all members of previous and current cohorts",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mwaiseghe/jitu-community-club-assess-6.git"
+  },
+  "author": "Mwaiseghe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mwaiseghe/jitu-community-club-assess-6/issues"
+  },
+  "homepage": "https://github.com/mwaiseghe/jitu-community-club-assess-6#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  }
+}
