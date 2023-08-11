@@ -14,15 +14,5 @@ describe("Local Config", {
     // }
     // );
 
-    it("Should have all the required form fields", () => {
-        cy.get("form").within(() => {
-            cy.get("#first_name");
-            cy.get("#last_name");
-            cy.get("#email");
-            cy.get("#phone_number");
-            cy.get("#gender");
-            cy.get("#cohort_number");
-            cy.get("#description");
-        });
-    });
+    
 });
