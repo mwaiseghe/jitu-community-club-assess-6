@@ -1,7 +1,5 @@
-const { request } = require('express');
 const mssql = require('mssql');
-const { v4 } = require('uuid');
-
+const { registerMember } = require('../Controllers/registerMemberController');
 
 const req = {
     body: {
@@ -13,7 +11,7 @@ const req = {
         cohort_number: "17",
         description: "I am good in helping out with complex logic"
     }
-}
+};
 
 const res = {
     status: jest.fn().mockReturnThis(),
@@ -42,8 +40,9 @@ describe('registerMemberController', () => {
                 message: "Please fill in all fields"
             })
         })
+        
 
-        it('should return a 400 status code if the email is not in the format'), async () => {
+        it('should return a 400 status code if the email is not in the format', async () => {
             const req = {
                 body: {
                     first_name: "Gift",
@@ -62,14 +61,14 @@ describe('registerMemberController', () => {
             expect(res.json).toHaveBeenCalledWith({
                 message: "Email must be in the format: fname.lname@thejitu.com"
             })
-        }
+        })
 
         it('should return a 400 status code if the email already exists', async () => {
             jest.spyOn(mssql, 'connect').mockResolvedValueOnce({
                 request: jest.fn().mockReturnThis(),
                 input: jest.fn().mockReturnThis(),
                 execute: jest.fn().mockResolvedValueOnce({
-                    rowsAffected: [1]
+                    recordset: [{}]
                 })
             })
 
@@ -81,22 +80,6 @@ describe('registerMemberController', () => {
             })
         })
 
-        it('should return a 400 status code if the member is not registered', async () => {
-            jest.spyOn(mssql, 'connect').mockResolvedValueOnce({
-                request: jest.fn().mockReturnThis(),
-                input: jest.fn().mockReturnThis(),
-                execute: jest.fn().mockResolvedValueOnce({
-                    rowsAffected: [0]
-                })
-            })
-
-            await registerMember(req, res);
-
-            expect(res.status).toHaveBeenCalledWith(400);
-            expect(res.json).toHaveBeenCalledWith({
-                message: "Member not registered"
-            })
-        })
 
         it('should return a 200 status code if the member is registered successfully', async () => {
             jest.spyOn(mssql, 'connect').mockResolvedValueOnce({
@@ -105,7 +88,7 @@ describe('registerMemberController', () => {
                 execute: jest.fn().mockResolvedValueOnce({
                     rowsAffected: [1]
                 })
-            })
+            });
 
             await registerMember(req, res);
 
@@ -116,13 +99,12 @@ describe('registerMemberController', () => {
         })
 
         it('should return a 500 status code if there is an error', async () => {
-            jest.spyOn(mssql, 'connect').mockRejectedValueOnce(new Error('Error'))
+            jest.spyOn(mssql, 'connect').mockRejectedValueOnce(new Error('Something went wrong'));
 
             await registerMember(req, res);
-
             expect(res.status).toHaveBeenCalledWith(500);
             expect(res.json).toHaveBeenCalledWith({
-                message: "Oops! Something went wrong"
+                message: "Something went wrong"
             })
         })
     })

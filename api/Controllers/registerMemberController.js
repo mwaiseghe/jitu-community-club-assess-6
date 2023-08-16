@@ -11,7 +11,6 @@ const registerMember = async (req, res) => {
             } = req.body;
 
         const id = v4();
-        console.log(req.body);
 
         // validate the data
         if(!first_name || !last_name || !email || !phone_number || !gender || !cohort_number || !description){
@@ -58,13 +57,9 @@ const registerMember = async (req, res) => {
                 message: "Member registered successfully"
             })
         }
-
-        return res.status(400).json({
-            message: "Member not registered"
-        })
     }catch(error){
         return res.status(500).json({
-            message: error.message
+            message: "Something went wrong"
         })
     }
 }
@@ -72,8 +67,6 @@ const registerMember = async (req, res) => {
 module.exports = {
     registerMember
 }
-
-        
 
 
 
